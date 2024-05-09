@@ -23,7 +23,7 @@ import com.example.thenewsapp.ui.NewsViewModel
 import com.example.thenewsapp.util.Constants
 import com.example.thenewsapp.util.Resource
 
-class HeadlinesFragment : Fragment() {
+class HeadlinesFragment : Fragment(R.layout.fragment_headlines) {
 
     lateinit var newsViewModel: NewsViewModel
     lateinit var newsAdapter: NewsAdapter
@@ -62,6 +62,7 @@ class HeadlinesFragment : Fragment() {
                     response.data?.let { newsResponse ->
                         newsAdapter.differ.submitList(newsResponse.articles.toList())
                         val totalPages = newsResponse.totalResults / Constants.QUERY_PAGE_SIZE + 2
+                        isLastPage = newsViewModel.headlinesPage == totalPages
                         if(isLastPage){
                             binding.recyclerHeadlines.setPadding(0,0,0,0)
                         }
